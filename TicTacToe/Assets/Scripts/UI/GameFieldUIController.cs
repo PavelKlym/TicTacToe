@@ -88,7 +88,7 @@ public class GameFieldUIController : MonoBehaviour {
 
 	private void ClearField () {
 		for (int c = 0; c < _cells.Count; c++) {
-			_cells [c].SetState (CellState.Empty);
+			_cells [c].SetState (CellState.EMPTY);
 		}
 	}
 		

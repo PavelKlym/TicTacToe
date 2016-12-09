@@ -131,9 +131,9 @@ public class GameManager : MonoBehaviour {
 
 		//Controller
 		int player1ID = 123;
-		_player1 = new HumanPlayer (player1ID, CellState.Cross, this);
+		_player1 = new HumanPlayer (player1ID, CellState.CROSS, this);
 		int player2ID = 321;
-		_player2 = new HumanPlayer (player2ID, CellState.Nought, this);
+		_player2 = new HumanPlayer (player2ID, CellState.NOUGHT, this);
 
 	}
 

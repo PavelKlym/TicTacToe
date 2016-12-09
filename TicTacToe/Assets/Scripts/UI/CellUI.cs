@@ -41,15 +41,15 @@ public class CellUI : MonoBehaviour {
 
 		switch (_state) {
 
-		case CellState.Empty:
+		case CellState.EMPTY:
 			_stateImage.sprite = null;
 			break;
 
-		case CellState.Cross:
+		case CellState.CROSS:
 			_stateImage.sprite = GameFieldUIController.GetCrossSprite;
 			break;
 
-		case CellState.Nought:
+		case CellState.NOUGHT:
 			_stateImage.sprite = GameFieldUIController.GetNoughtSprite;
 			break;
 		}

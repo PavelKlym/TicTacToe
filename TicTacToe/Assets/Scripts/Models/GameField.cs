@@ -22,7 +22,7 @@ public class GameField {
 
 		for (int x = 0; x < _gameField.GetLength (0); x++) {
 			for (int y = 0; y < _gameField.GetLength (0); y++) {
-				_gameField [x, y] = CellState.Empty;
+				_gameField [x, y] = CellState.EMPTY;
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class GameField {
 		}
 
 		//Check game field filling
-		if (_gameField [x, y] != CellState.Empty) {
+		if (_gameField [x, y] != CellState.EMPTY) {
 			return false;
 		}
 
@@ -61,12 +61,12 @@ public class GameField {
 	//--------------------------------------------------------------
 
 	private void CheckGameOver () {
-		CellState winner = CellState.None;
+		CellState winner = CellState.NONE;
 		//bool is
 		//Check who win or noone
 
 		//Horizontal
-		if (_gameField [0, 0] != CellState.Empty 
+		if (_gameField [0, 0] != CellState.EMPTY 
 			&& _gameField [0, 0] == _gameField [0, 1] 
 			&& _gameField [0, 1] == _gameField [0, 2]) {
 
@@ -77,7 +77,7 @@ public class GameField {
 			return;
 		}
 
-		if (_gameField [1, 0] != CellState.Empty 
+		if (_gameField [1, 0] != CellState.EMPTY 
 			&& _gameField [1, 0] == _gameField [1, 1] 
 			&& _gameField [1, 1] == _gameField [1, 2]) {
 
@@ -88,7 +88,7 @@ public class GameField {
 			return;
 		}
 
-		if (_gameField [2, 0] != CellState.Empty 
+		if (_gameField [2, 0] != CellState.EMPTY 
 			&& _gameField [2, 0] == _gameField [2, 1] 
 			&& _gameField [2, 1] == _gameField [2, 2]) {
 
@@ -100,7 +100,7 @@ public class GameField {
 		}
 
 		//Vertical
-		if (_gameField [0, 0] != CellState.Empty 
+		if (_gameField [0, 0] != CellState.EMPTY 
 			&& _gameField [0, 0] == _gameField [1, 0] 
 			&& _gameField [1, 0] == _gameField [2, 0]) {
 
@@ -111,7 +111,7 @@ public class GameField {
 			return;
 		}
 
-		if (_gameField [0, 1] != CellState.Empty 
+		if (_gameField [0, 1] != CellState.EMPTY 
 			&& _gameField [0, 1] == _gameField [1, 1] 
 			&& _gameField [1, 1] == _gameField [2, 1]) {
 
@@ -122,7 +122,7 @@ public class GameField {
 			return;
 		}
 
-		if (_gameField [0, 2] != CellState.Empty 
+		if (_gameField [0, 2] != CellState.EMPTY 
 			&& _gameField [0, 2] == _gameField [1, 2] 
 			&& _gameField [1, 2] == _gameField [2, 2]) {
 
@@ -134,7 +134,7 @@ public class GameField {
 		}
 
 		//Cross
-		if (_gameField [0, 0] != CellState.Empty 
+		if (_gameField [0, 0] != CellState.EMPTY 
 			&& _gameField [0, 0] == _gameField [1, 1] 
 			&& _gameField [1, 1] == _gameField [2, 2]) {
 
@@ -145,7 +145,7 @@ public class GameField {
 			return;
 		}
 
-		if (_gameField [2, 0] != CellState.Empty 
+		if (_gameField [2, 0] != CellState.EMPTY 
 			&& _gameField [2, 0] == _gameField [1, 1] 
 			&& _gameField [1, 1] == _gameField [0, 2]) {
 
@@ -159,7 +159,7 @@ public class GameField {
 		bool isEmptyCellPresent = false;
 		for (int h = 0; h < _gameField.GetLength (0); h++) {
 			for (int v = 0; v < _gameField.GetLength (1); v++) {
-				if (_gameField [h, v] == CellState.Empty) {
+				if (_gameField [h, v] == CellState.EMPTY) {
 					return;
 				}
 			}

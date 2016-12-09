@@ -59,10 +59,10 @@ public class GameScreenControllerUI : MonoBehaviour {
 	}
 
 	private void OnGameOverHandler (CellState winner) {
-		if (winner == CellState.None) {
+		if (winner == CellState.NONE) {
 			_messageText.text = "DRAW";
 		} else {
-			_messageText.text = "PLAYER " + _gameManager.CurrentPlayer.Mark.ToString () + " WIN";
+			_messageText.text = _gameManager.CurrentPlayer.Mark.ToString () + " WIN";
 		}
 
 	}

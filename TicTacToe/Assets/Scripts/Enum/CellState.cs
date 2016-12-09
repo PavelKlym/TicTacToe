@@ -1,8 +1,8 @@
 ﻿
 public enum CellState
 {
-	None,
-	Empty, 
-	Nought, 
-	Cross
+	NONE,
+	EMPTY, 
+	NOUGHT, 
+	CROSS
 };

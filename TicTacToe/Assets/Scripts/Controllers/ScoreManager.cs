@@ -95,11 +95,11 @@ public class ScoreManager : MonoBehaviour {
 	private void OnGameOverHandler (CellState mark) {
 		switch (mark) {
 
-		case CellState.Cross:
+		case CellState.CROSS:
 			_player1Score++;
 			break;
 
-		case CellState.Nought:
+		case CellState.NOUGHT:
 			_player2Score++;
 			break;
 		}
