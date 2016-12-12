@@ -47,7 +47,7 @@ public class GameScreenControllerUI : MonoBehaviour {
 	}
 
 	public void OnNewGameButtonClick () {
-		_gameManager.StartNewGame ();
+		_gameManager.Restart ();
 	}
 
 	//--------------------------------------------------------------

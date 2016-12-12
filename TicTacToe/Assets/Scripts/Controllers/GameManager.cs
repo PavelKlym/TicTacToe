@@ -76,8 +76,6 @@ public class GameManager : MonoBehaviour {
 
 		Init ();
 
-		//StartNewMove ();
-
 		if (_lastGameFirstTurn == null) {
 			_currentPlayer = _player1;
 		} else {
@@ -94,6 +92,15 @@ public class GameManager : MonoBehaviour {
 		if (OnGameStarted != null) {
 			OnGameStarted ();
 		}
+
+		Debug.Log ("Player1 " + _player1.ToString ());
+		Debug.Log ("Player2 " + _player2.ToString ());
+	}
+
+	public void Restart () {
+		GameOver (CellState.NONE);
+
+		StartNewGame ();
 	}
 
 	public bool TrySet (Vector2 position, CellState mark) {
@@ -162,15 +169,15 @@ public class GameManager : MonoBehaviour {
 		Debug.Log ("Switch player to " + _currentPlayer.Mark);
 	}
 
-	public void Subscribe () {
+	private void Subscribe () {
 		GameField.OnGameOver += OnGameOverHandler;
 	}
 
-	public void Unsubscribe () {
+	private void Unsubscribe () {
 		GameField.OnGameOver -= OnGameOverHandler;
 	}
 
-	private void OnGameOverHandler (CellState winner) {
+	private void GameOver (CellState winner) {
 		_isGameOver = true;
 
 		Unsubscribe ();
@@ -179,6 +186,15 @@ public class GameManager : MonoBehaviour {
 			OnGameOver (winner);
 		}
 		Debug.Log ("---------------------------GAME OVER " + winner.ToString () + "---------------------------");
+	}
+
+	//--------------------------------------------------------------
+	//Handlers
+	//--------------------------------------------------------------
+
+
+	private void OnGameOverHandler (CellState winner) {
+		GameOver (winner);
 
 		Invoke ("StartNewGame", 2.0f);
 	}

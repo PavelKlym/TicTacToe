@@ -47,4 +47,8 @@ public class Player {
 	public void EndMove () {
 		_isMyTurn = false;
 	}
+
+	public override string ToString () {
+		return string.Format ("[Player: ", ID.ToString (), Mark.ToString ());
+	}
 }
