@@ -40,11 +40,11 @@ public class Player {
 	//Public methods
 	//--------------------------------------------------------------
 
-	public void GiveTurn () {
+	public virtual void GiveTurn () {
 		_isMyTurn = true;
 	}
 
-	public void EndMove () {
+	public virtual void EndMove () {
 		_isMyTurn = false;
 	}
 

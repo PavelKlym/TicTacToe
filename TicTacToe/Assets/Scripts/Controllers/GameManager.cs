@@ -8,10 +8,8 @@ public class GameManager : MonoBehaviour {
 	public static Action OnGameStarted;
 	public static Action<CellState> OnGameOver;
 
-	public static Action OnMoveStarted;
+	public static Action<CellState> OnMoveStarted;
 	public static Action OnMoveEnded;
-
-	private bool _isGameOver = false;
 
 	//Model
 	GameField _gameField;
@@ -53,7 +51,17 @@ public class GameManager : MonoBehaviour {
 
 	public bool IsGameOver {
 		get {
-			return _isGameOver;
+			return _gameField.IsGameOver;
+		}
+	}
+
+	public CellState[,] GetCells {
+		get {
+			/*int size = _gameField.Cells.GetLength ();
+			CellState[,] cells = new CellState[,];
+			return Array.Copy (_cells, 0, cells, 0, size);*/
+
+			return (CellState[,])_gameField.Cells;
 		}
 	}
 
@@ -87,11 +95,11 @@ public class GameManager : MonoBehaviour {
 		}
 		_lastGameFirstTurn = _currentPlayer;
 
-		StartNewMove ();
-
 		if (OnGameStarted != null) {
 			OnGameStarted ();
 		}
+
+		StartNewMove ();
 
 		Debug.Log ("Player1 " + _player1.ToString ());
 		Debug.Log ("Player2 " + _player2.ToString ());
@@ -110,7 +118,7 @@ public class GameManager : MonoBehaviour {
 			if (OnMoveEnded != null)
 				OnMoveEnded ();
 
-			if (_isGameOver == false) {
+			if (_gameField.IsGameOver == false) {
 				SwitchPlayer ();
 				StartNewMove ();
 			} 
@@ -126,8 +134,6 @@ public class GameManager : MonoBehaviour {
 	//--------------------------------------------------------------
 
 	private void Init () {
-		_isGameOver = false;
-
 		Subscribe ();
 
 		//Model
@@ -140,18 +146,21 @@ public class GameManager : MonoBehaviour {
 		int player1ID = 123;
 		_player1 = new HumanPlayer (player1ID, CellState.CROSS, this);
 		int player2ID = 321;
-		_player2 = new HumanPlayer (player2ID, CellState.NOUGHT, this);
+		//_player2 = new HumanPlayer (player2ID, CellState.NOUGHT, this);
+		int size = _gameField.Cells.GetLength (0);
+		//CellState[,] cells = _gameField.Cells;
 
+		_player2 = new AIPlayer (player2ID, CellState.NOUGHT, this, 4);
 	}
 
 	private void StartNewMove () {
 		Debug.Log ("New move");
 
-		_currentPlayer.GiveTurn ();
-
 		if (OnMoveStarted != null) {
-			OnMoveStarted ();
+			OnMoveStarted (_currentPlayer.Mark);
 		}
+
+		_currentPlayer.GiveTurn ();
 	}
 
 	private void SwitchPlayer () {
@@ -178,8 +187,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void GameOver (CellState winner) {
-		_isGameOver = true;
-
 		Unsubscribe ();
 
 		if (OnGameOver != null) {

@@ -71,7 +71,8 @@ public class GameScreenControllerUI : MonoBehaviour {
 		_scoreText.text = ScoreManager.Player1Score.ToString () + " : " + ScoreManager.Player2Score.ToString ();
 	}
 
-	private void OnMoveStartedHandler () {
-		_messageText.text = "TURN: " + _gameManager.CurrentPlayer.Mark.ToString ();
+	private void OnMoveStartedHandler (CellState mark) {
+		_messageText.text = "TURN: " + mark.ToString ();
+		Debug.Log ("#########################OnMoveStartedHandler " + mark);
 	}
 }

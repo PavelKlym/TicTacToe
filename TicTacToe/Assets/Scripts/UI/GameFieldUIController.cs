@@ -57,13 +57,11 @@ public class GameFieldUIController : MonoBehaviour {
 		for (int c = 0; c < _cells.Count; c++) {
 			_cells [c].OnCellClicked += OnCellClickedHandler;
 		}
-
-
 	}
 
 	private void OnDisable () {
 		GameField.OnCellUpdated -= OnGameFieldCellUpdatedHandler;
-		GameManager.OnGameStarted += OnGameStartedHandler;
+		GameManager.OnGameStarted -= OnGameStartedHandler;
 
 		for (int c = 0; c < _cells.Count; c++) {
 			_cells [c].OnCellClicked -= OnCellClickedHandler;

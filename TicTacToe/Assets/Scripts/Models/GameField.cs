@@ -10,15 +10,33 @@ public class GameField {
 
 
 	private CellState[,] _gameField = null;
-	private bool isFieldInited = false;
+	private bool _isFieldInited = false;
+	private bool _isGameOver = false;
 
 	//--------------------------------------------------------------
-	//Public methods
+	//Get/Set
+	//--------------------------------------------------------------
+
+	public CellState[,] Cells {
+		get {
+			return (CellState[,])_gameField.Clone ();
+		}
+	}
+
+	public bool IsGameOver {
+		get {
+			return _isGameOver;
+		}
+	}
+
+	//--------------------------------------------------------------
+	//Constructors
 	//--------------------------------------------------------------
 
 	public GameField () {
 		_gameField = new CellState[3, 3];
-		isFieldInited = true;
+		_isFieldInited = true;
+		_isGameOver = false;
 
 		for (int x = 0; x < _gameField.GetLength (0); x++) {
 			for (int y = 0; y < _gameField.GetLength (0); y++) {
@@ -29,7 +47,7 @@ public class GameField {
 
 	public bool TrySet (int x, int y, CellState mark) {
 		//Check init
-		if (isFieldInited == false) {
+		if (_isFieldInited == false) {
 			return false;
 		}
 
@@ -51,7 +69,9 @@ public class GameField {
 		if (OnFieldUpdated != null)
 			OnFieldUpdated ();
 
-		CheckGameOver ();
+		if (CheckGameOver ()) {
+			_isGameOver = true;
+		}
 
 		return true;
 	}
@@ -60,7 +80,7 @@ public class GameField {
 	//Private methods
 	//--------------------------------------------------------------
 
-	private void CheckGameOver () {
+	private bool CheckGameOver () {
 		CellState winner = CellState.NONE;
 		//bool is
 		//Check who win or noone
@@ -73,8 +93,8 @@ public class GameField {
 			winner = _gameField [0, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		if (_gameField [1, 0] != CellState.EMPTY 
@@ -84,8 +104,8 @@ public class GameField {
 			winner = _gameField [1, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		if (_gameField [2, 0] != CellState.EMPTY 
@@ -95,8 +115,8 @@ public class GameField {
 			winner = _gameField [2, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		//Vertical
@@ -107,8 +127,8 @@ public class GameField {
 			winner = _gameField [0, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		if (_gameField [0, 1] != CellState.EMPTY 
@@ -118,8 +138,8 @@ public class GameField {
 			winner = _gameField [0, 1];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		if (_gameField [0, 2] != CellState.EMPTY 
@@ -129,8 +149,8 @@ public class GameField {
 			winner = _gameField [0, 2];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		//Cross
@@ -141,31 +161,37 @@ public class GameField {
 			winner = _gameField [0, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		if (_gameField [2, 0] != CellState.EMPTY 
 			&& _gameField [2, 0] == _gameField [1, 1] 
 			&& _gameField [1, 1] == _gameField [0, 2]) {
 
-			winner = _gameField [0, 0];
+			winner = _gameField [2, 0];
 			if (OnGameOver != null)
 				OnGameOver (winner);
-
-			return;
+			
+			return true;
 		}
 
 		bool isEmptyCellPresent = false;
 		for (int h = 0; h < _gameField.GetLength (0); h++) {
 			for (int v = 0; v < _gameField.GetLength (1); v++) {
 				if (_gameField [h, v] == CellState.EMPTY) {
-					return;
+					isEmptyCellPresent = true;
 				}
 			}
 		}
 
-		if (OnGameOver != null)
-			OnGameOver (winner);
+		if (isEmptyCellPresent == false) {
+			if (OnGameOver != null)
+				OnGameOver (CellState.NONE);
+
+			return true;
+		}
+		
+		return false;
 	}
 }
